@@ -1,4 +1,4 @@
-package com.example.travellapp
+package com.example.travellapp.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
@@ -10,15 +10,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.travellapp.navigations.BottomNavigationBar
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun RecentScreen(navController: NavController) {
+fun FavoriteScreen(navController: NavController) {
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController) }
     ) {
@@ -28,7 +26,7 @@ fun RecentScreen(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center ) {
             Text(
-                text = "Недавние "
+                text = "Избранные",
             )
         }
     }

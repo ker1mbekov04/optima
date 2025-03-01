@@ -1,4 +1,4 @@
-package com.example.travellapp
+package com.example.travellapp.navigations
 
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.travellapp.R
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {

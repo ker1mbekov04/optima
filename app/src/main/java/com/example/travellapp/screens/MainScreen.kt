@@ -1,4 +1,4 @@
-package com.example.travellapp
+package com.example.travellapp.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -43,6 +43,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,6 +51,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.travellapp.navigations.BottomNavigationBar
+import com.example.travellapp.R
+import com.example.travellapp.models.Place
 
 @Composable
 fun MainScreen(navController: NavController) {
@@ -189,36 +193,38 @@ fun FilterTabs() {
 
 @Composable
 fun PlacesListScreen(navController: NavController) {
-    val places = remember {
-        listOf(
-            Place(
-                id = 1,
-                name = "Гора Фудзи",
-                location = "Токио, Япония",
-                rating = 4.8f,
-                price = 270,
-                image = R.drawable.fuji,
-                description = "Гора Фудзи — это один из самых знаковых пейзажей Японии, символизирующий силу и гармонию природы. Ее заснеженная вершина возвышается на 3776 метров, притягивая альпинистов и фотографов со всего мира. Весной подножие Фудзи утопает в цветущей сакуре, а осенью покрывается яркими оттенками кленовых листьев. Здесь можно насладиться традиционными онсэнами, исследовать древние храмы и испытать себя на захватывающих маршрутах восхождения.",
-                time = "8 часов",
-                gradus = "16°C"
-            ),
-            Place(
-                id = 2,
-                name = "Гора Анды",
-                location = "Южная Америка",
-                rating = 4.5f,
-                price = 230,
-                image = R.drawable.andy,
-                description = "Горная цепь Анды — это величественное природное чудо, растянувшееся на 7000 километров через несколько стран Южной Америки. Здесь находятся самые высокие вершины за пределами Азии, среди которых Аконкагуа (6961 м). Эти горы хранят следы древних цивилизаций, включая таинственные руины инков, а также священные дороги, ведущие в легендарный Мачу-Пикчу. В Андах можно встретить потрясающее разнообразие климатических зон — от заснеженных вершин до пышных тропических лесов. ",
-                time = "11 часов",
-                gradus = "9°C"
-            )
+    // Список мест, учитывая новую структуру данных
+    val places = listOf(
+        Place(
+            id = 1,
+            nameResId = R.string.place_fuji_name,
+            locationResId = R.string.place_fuji_location,
+            rating = 4.8f,
+            price = 270,
+            image = R.drawable.fuji,
+            descriptionResId = R.string.place_fuji_description,
+            timeResId = R.string.place_fuji_time,
+            gradusResId = R.string.place_fuji_temp
+        ),
+        Place(
+            id = 2,
+            nameResId = R.string.place_andy_name,
+            locationResId = R.string.place_andy_location,
+            rating = 4.5f,
+            price = 230,
+            image = R.drawable.andy,
+            descriptionResId = R.string.place_andy_description,
+            timeResId = R.string.place_andy_time,
+            gradusResId = R.string.place_andy_temp
         )
-    }
+    )
 
     LazyRow(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
         items(places) { place ->
-            PlaceCard(place = place, navController = navController)
+            PlaceCard(
+                place = place,
+                navController = navController
+            )
         }
     }
 }
@@ -226,6 +232,11 @@ fun PlacesListScreen(navController: NavController) {
 @Composable
 fun PlaceCard(place: Place, navController: NavController) {
     var isFavorite by remember { mutableStateOf(false) }
+
+    // Извлекаем строки из ресурсов
+    val placeName = stringResource(id = place.nameResId)
+    val placeLocation = stringResource(id = place.locationResId)
+
     Card(
         modifier = Modifier
             .width(270.dp)
@@ -274,7 +285,7 @@ fun PlaceCard(place: Place, navController: NavController) {
                 Column {
                     // Название
                     Text(
-                        text = place.name,
+                        text = placeName,
                         fontSize = 18.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.White
@@ -291,7 +302,7 @@ fun PlaceCard(place: Place, navController: NavController) {
                             tint = Color.White
                         )
                         Text(
-                            text = place.location,
+                            text = placeLocation,
                             fontSize = 14.sp,
                             color = Color.White,
                             modifier = Modifier.padding(start = 4.dp)
@@ -320,7 +331,6 @@ fun PlaceCard(place: Place, navController: NavController) {
         }
     }
 }
-
 
 @Preview
 @Composable

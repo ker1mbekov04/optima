@@ -1,4 +1,4 @@
-package com.example.travellapp
+package com.example.travellapp.navigations
 
 data class BottomNavItem(
     val route: String,
